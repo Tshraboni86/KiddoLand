@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-gamepad"></i> Dashboard</a></li>
+                <li><a href="parent.html"><i class="fas fa-user-shield"></i> Parents</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <section class="dashboard">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div style="flex: 1;">
+                    <h1>Welcome back, Alex! 👋</h1>
+                    <p>Level 5 Explorer • 245 Stars ⭐</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 65%;"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem;">65% to next level</p>
+                </div>
+                <div>
+                    <button class="btn btn-primary" onclick="collectReward()">
+                        <i class="fas fa-gift btn-icon"></i> Daily Reward
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="progress-section">
+                <h2>Continue Learning</h2>
+                <div class="subjects-grid" style="margin-top: 1rem;">
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Math Adventure</h3>
+                        <p>Complete 3 more lessons!</p>
+                        <a href="math-quiz.html" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-play"></i> Continue
+                        </a>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Alphabet Fun</h3>
+                        <p>Learn letters A-F</p>
+                        <a href="alphabet.html" class="btn btn-primary" style="margin-top: 1rem;">
+                            <i class="fas fa-play"></i> Continue
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games -->
+            <div class="progress-section">
+                <h2><i class="fas fa-gamepad"></i> Game Zone</h2>
+                <div class="subjects-grid" style="margin-top: 1rem;">
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3>Puzzle Challenge</h3>
+                        <p>Match shapes and colors</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Puzzle')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <h3>Memory Game</h3>
+                        <p>Find matching pairs</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Memory')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Art Studio</h3>
+                        <p>Draw and color</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Art')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rewards -->
+            <div class="progress-section">
+                <h2><i class="fas fa-award"></i> My Rewards</h2>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+                    <div class="badge" style="background: gold; color: var(--purple);">
+                        <i class="fas fa-medal"></i> Math Master
+                    </div>
+                    <div class="badge" style="background: silver; color: var(--purple);">
+                        <i class="fas fa-star"></i> Reading Star
+                    </div>
+                    <div class="badge" style="background: var(--pink); color: white;">
+                        <i class="fas fa-trophy"></i> 7-Day Streak
+                    </div>
+                    <div class="badge" style="background: var(--blue); color: white;">
+                        <i class="fas fa-crown"></i> Quick Learner
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-section">
+                <h2><i class="fas fa-chart-line"></i> My Progress</h2>
+                <div style="margin-top: 1rem;">
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Math</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%; background: var(--pink);"></div>
+                        </div>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>English</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%; background: var(--blue);"></div>
+                        </div>
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Science</span>
+                            <span>40%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%; background: var(--green);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Play. Learn. Grow. Have fun learning! 🎉</p>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="parent.html">Parent Zone</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

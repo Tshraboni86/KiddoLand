@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Fun - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-gamepad"></i> Dashboard</a></li>
+                <li><a href="parent.html"><i class="fas fa-user-shield"></i> Parents</a></li>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-user"></i> My Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Alphabet Learning -->
+    <section class="alphabet-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1>Alphabet Adventure! 🎉</h1>
+                <p>Click on letters to learn their sounds and words</p>
+            </div>
+
+            <!-- Current Letter Display -->
+            <div style="background: white; border-radius: 20px; padding: 2rem; margin: 2rem auto; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <div style="font-size: 8rem; color: var(--purple); margin-bottom: 1rem;" class="current-letter">A</div>
+                <div style="font-size: 2rem; color: var(--blue);" class="letter-word">Apple</div>
+                <button class="btn btn-primary" style="margin-top: 1rem;" onclick="playLetterSound(document.querySelector('.current-letter').textContent)">
+                    <i class="fas fa-volume-up btn-icon"></i> Hear Sound
+                </button>
+            </div>
+
+            <!-- Alphabet Grid -->
+            <div class="letters-grid">
+                <!-- Letters A-Z -->
+                <div class="letter-card active">
+                    <div class="letter">A</div>
+                    <div class="letter-image">🍎</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">B</div>
+                    <div class="letter-image">🐝</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">C</div>
+                    <div class="letter-image">🐱</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">D</div>
+                    <div class="letter-image">🐶</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">E</div>
+                    <div class="letter-image">🐘</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">F</div>
+                    <div class="letter-image">🐟</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">G</div>
+                    <div class="letter-image">🦒</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">H</div>
+                    <div class="letter-image">🏠</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">I</div>
+                    <div class="letter-image">🍦</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">J</div>
+                    <div class="letter-image">🪀</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">K</div>
+                    <div class="letter-image">🪁</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">L</div>
+                    <div class="letter-image">🦁</div>
+                </div>
+                <div class="letter-card">
+                    <div class="letter">M</div>
+                    <div class="letter-image">🐒</div>
+                </div>
+                <!-- Add more letters as needed -->
+            </div>
+
+            <!-- Learning Games -->
+            <div style="margin-top: 3rem; background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h2 style="text-align: center;">Learning Games</h2>
+                <div class="subjects-grid" style="margin-top: 2rem;">
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-shapes"></i>
+                        </div>
+                        <h3>Letter Match</h3>
+                        <p>Match letters with pictures</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Letter Match')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3>Word Puzzle</h3>
+                        <p>Build words from letters</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Word Puzzle')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3>Say It Right</h3>
+                        <p>Practice pronunciation</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startGame('Pronunciation')">
+                            <i class="fas fa-play"></i> Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <h3>Your Alphabet Progress</h3>
+                <div class="progress-bar" style="max-width: 500px; margin: 1rem auto;">
+                    <div class="progress-fill" style="width: 30%;"></div>
+                </div>
+                <p>6 of 26 letters learned</p>
+                <button class="btn btn-secondary" onclick="updateProgress('alphabet', 35)">
+                    <i class="fas fa-save btn-icon"></i> Save Progress
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Keep learning! Every letter brings new adventures! ✨</p>
+            <div class="footer-links">
+                <a href="courses.html">More Courses</a>
+                <a href="dashboard.html">My Dashboard</a>
+                <a href="parent.html">Ask Parents</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

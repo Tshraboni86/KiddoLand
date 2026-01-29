@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for parent dashboard */
+        .parent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .control-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--purple);
+        }
+        
+        .child-profile {
+            background: linear-gradient(135deg, var(--light-pink), var(--light-blue));
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .time-control {
+            margin: 1.5rem 0;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .time-slider {
+            flex: 1;
+            height: 10px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, var(--pink), var(--purple));
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--yellow);
+            cursor: pointer;
+            border: 3px solid var(--purple);
+        }
+        
+        .report-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .badge-small {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-gamepad"></i> Kid's View</a></li>
+                <li><a href="parent.html" class="active"><i class="fas fa-user-shield"></i> Parent Dashboard</a></li>
+                <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Parent Dashboard -->
+    <section class="parent-dashboard">
+        <div class="container">
+            <!-- Header -->
+            <div style="background: white; border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h1 style="color: var(--purple); margin: 0;">👨‍👩‍👧 Parent Dashboard</h1>
+                        <p style="color: var(--blue); margin: 0.5rem 0 0 0;">Monitor and manage your child's learning journey</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateReport()">
+                        <i class="fas fa-file-download btn-icon"></i> Download Full Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div style="font-size: 2.5rem; color: var(--pink); margin-bottom: 0.5rem;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Today's Learning</h3>
+                    <div class="stat-number" id="todayTime">45 min</div>
+                    <p>Time spent learning</p>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 2.5rem; color: var(--blue); margin-bottom: 0.5rem;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Completed</h3>
+                    <div class="stat-number" id="completedLessons">18</div>
+                    <p>Lessons this week</p>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 2.5rem; color: var(--green); margin-bottom: 0.5rem;">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Streak</h3>
+                    <div class="stat-number" id="streakDays">7</div>
+                    <p>Days in a row</p>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 2.5rem; color: var(--orange); margin-bottom: 0.5rem;">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Achievements</h3>
+                    <div class="stat-number" id="totalBadges">12</div>
+                    <p>Badges earned</p>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="parent-grid">
+                <!-- Left Column: Child Profiles & Controls -->
+                <div>
+                    <!-- Child Profiles -->
+                    <div class="control-card">
+                        <h2 style="color: var(--purple); margin-bottom: 1.5rem;">
+                            <i class="fas fa-users"></i> My Children
+                        </h2>
+                        
+                        <div class="child-profile">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(45deg, var(--pink), var(--purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--purple);">Alex (Age 6)</h3>
+                                <p style="margin: 0.3rem 0; color: var(--blue);">
+                                    <i class="fas fa-star" style="color: var(--orange);"></i> Level 5 Explorer
+                                </p>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <span class="badge-small" style="background: var(--pink); color: white;">245 ⭐</span>
+                                    <span class="badge-small" style="background: var(--blue); color: white;">12 🏆</span>
+                                </div>
+                            </div>
+                            <button class="btn" onclick="viewChildDetails('alex')" style="background: var(--light-blue);">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </div>
+                        
+                        <div class="child-profile">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(45deg, var(--blue), var(--green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="margin: 0; color: var(--purple);">Sophia (Age 8)</h3>
+                                <p style="margin: 0.3rem 0; color: var(--blue);">
+                                    <i class="fas fa-star" style="color: var(--orange);"></i> Level 7 Master
+                                </p>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                    <span class="badge-small" style="background: var(--pink); color: white;">380 ⭐</span>
+                                    <span class="badge-small" style="background: var(--blue); color: white;">18 🏆</span>
+                                </div>
+                            </div>
+                            <button class="btn" onclick="viewChildDetails('sophia')" style="background: var(--light-blue);">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="addChild()">
+                            <i class="fas fa-plus btn-icon"></i> Add Child Profile
+                        </button>
+                    </div>
+
+                    <!-- Parental Controls -->
+                    <div class="control-card">
+                        <h2 style="color: var(--purple); margin-bottom: 1.5rem;">
+                            <i class="fas fa-shield-alt"></i> Parental Controls
+                        </h2>
+                        
+                        <!-- Daily Time Limit -->
+                        <div class="time-control">
+                            <h3 style="color: var(--blue); margin-bottom: 0.5rem;">
+                                <i class="fas fa-clock"></i> Daily Time Limit
+                            </h3>
+                            <p style="color: var(--dark); margin-bottom: 0.5rem;">Set maximum learning time per day:</p>
+                            <div class="slider-container">
+                                <span style="color: var(--purple); font-weight: bold; min-width: 60px;" id="timeDisplay">60 min</span>
+                                <input type="range" min="15" max="180" value="60" class="time-slider" id="timeLimit" oninput="updateTimeLimit()">
+                            </div>
+                        </div>
+                        
+                        <!-- Age Restrictions -->
+                        <div style="margin: 1.5rem 0;">
+                            <h3 style="color: var(--blue); margin-bottom: 0.5rem;">
+                                <i class="fas fa-child"></i> Age Restrictions
+                            </h3>
+                            <select id="ageSelect" style="width: 100%; padding: 0.8rem; border-radius: 15px; border: 3px solid var(--light-blue); font-family: 'Comic Sans MS', cursive; font-size: 1rem; color: var(--purple);" onchange="updateAgeRestriction()">
+                                <option value="3-5">3-5 years (Preschool)</option>
+                                <option value="6-8" selected>6-8 years (Early Elementary)</option>
+                                <option value="9-12">9-12 years (Upper Elementary)</option>
+                            </select>
+                            <p style="color: var(--dark); font-size: 0.9rem; margin-top: 0.5rem;">Filters content based on age group</p>
+                        </div>
+                        
+                        <!-- Bedtime Lock -->
+                        <div style="margin: 1.5rem 0;">
+                            <h3 style="color: var(--blue); margin-bottom: 0.5rem;">
+                                <i class="fas fa-moon"></i> Bedtime Lock
+                            </h3>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <input type="time" id="bedtime" value="20:00" style="padding: 0.8rem; border-radius: 15px; border: 3px solid var(--light-blue); font-family: 'Comic Sans MS', cursive;">
+                                <button class="btn" onclick="setBedtimeLock()" style="background: var(--pink); color: white;">
+                                    <i class="fas fa-lock"></i> Set
+                                </button>
+                            </div>
+                            <p style="color: var(--dark); font-size: 0.9rem; margin-top: 0.5rem;">App will lock automatically at bedtime</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Progress & Reports -->
+                <div>
+                    <!-- Progress Reports -->
+                    <div class="control-card">
+                        <h2 style="color: var(--purple); margin-bottom: 1.5rem;">
+                            <i class="fas fa-chart-line"></i> Progress Reports
+                        </h2>
+                        
+                        <!-- Email Reports -->
+                        <div style="margin-bottom: 2rem;">
+                            <h3 style="color: var(--blue); margin-bottom: 0.5rem;">
+                                <i class="fas fa-envelope"></i> Email Reports
+                            </h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="email" id="reportEmail" placeholder="your@email.com" style="flex: 1; padding: 0.8rem; border-radius: 15px; border: 3px solid var(--light-blue); font-family: 'Comic Sans MS', cursive;">
+                                <button class="btn btn-primary" onclick="sendProgressReport()">
+                                    <i class="fas fa-paper-plane"></i> Send
+                                </button>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <label style="color: var(--dark); display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="checkbox" id="weeklyReports" checked>
+                                    Send weekly reports automatically
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Activity -->
+                        <div>
+                            <h3 style="color: var(--blue); margin-bottom: 1rem;">
+                                <i class="fas fa-history"></i> Recent Activity
+                            </h3>
+                            <div class="report-card">
+                                <div>
+                                    <h4 style="margin: 0; color: var(--purple);">Math Quiz Completed</h4>
+                                    <p style="margin: 0.3rem 0 0 0; color: var(--dark);">Alex scored 90% on addition quiz</p>
+                                </div>
+                                <span style="color: var(--green); font-weight: bold;">Just now</span>
+                            </div>
+                            <div class="report-card">
+                                <div>
+                                    <h4 style="margin: 0; color: var(--purple);">Alphabet Lesson</h4>
+                                    <p style="margin: 0.3rem 0 0 0; color: var(--dark);">Sophia learned letters A-F</p>
+                                </div>
+                                <span style="color: var(--blue);">2 hours ago</span>
+                            </div>
+                            <div class="report-card">
+                                <div>
+                                    <h4 style="margin: 0; color: var(--purple);">Daily Reward Claimed</h4>
+                                    <p style="margin: 0.3rem 0 0 0; color: var(--dark);">Alex collected 10 stars</p>
+                                </div>
+                                <span style="color: var(--orange);">Yesterday</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Performance -->
+                    <div class="control-card">
+                        <h2 style="color: var(--purple); margin-bottom: 1.5rem;">
+                            <i class="fas fa-graduation-cap"></i> Subject Performance
+                        </h2>
+                        
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--purple);">Mathematics</span>
+                                <span style="color: var(--green); font-weight: bold;">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%; background: linear-gradient(90deg, var(--pink), var(--purple));"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--purple);">English</span>
+                                <span style="color: var(--green); font-weight: bold;">78%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%; background: linear-gradient(90deg, var(--blue), var(--green));"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--purple);">Science</span>
+                                <span style="color: var(--orange); font-weight: bold;">65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%; background: linear-gradient(90deg, var(--orange), var(--yellow));"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--purple);">Art & Creativity</span>
+                                <span style="color: var(--pink); font-weight: bold;">92%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%; background: linear-gradient(90deg, var(--purple), var(--pink));"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="control-card">
+                        <h2 style="color: var(--purple); margin-bottom: 1.5rem;">
+                            <i class="fas fa-bolt"></i> Quick Actions
+                        </h2>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <button class="btn" onclick="pauseLearning()" style="background: var(--light-blue);">
+                                <i class="fas fa-pause"></i> Pause Learning
+                            </button>
+                            <button class="btn" onclick="viewCertificates()" style="background: var(--light-pink);">
+                                <i class="fas fa-certificate"></i> View Certificates
+                            </button>
+                            <button class="btn" onclick="manageSubscription()" style="background: var(--light-blue);">
+                                <i class="fas fa-crown"></i> Premium Features
+                            </button>
+                            <button class="btn" onclick="contactSupport()" style="background: var(--light-pink);">
+                                <i class="fas fa-headset"></i> Get Help
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Keeping kids safe while they learn and grow. 👨‍👩‍👧‍👦</p>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="dashboard.html">Kid's View</a>
+                <a href="#" onclick="showPrivacySettings()">Privacy Settings</a>
+                <a href="#" onclick="contactSupport()">Contact Support</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Parental controls updated in real-time • COPPA compliant • No ads ever</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Parent Dashboard specific functions
+        function updateTimeLimit() {
+            const slider = document.getElementById('timeLimit');
+            const display = document.getElementById('timeDisplay');
+            const minutes = slider.value;
+            
+            display.textContent = minutes + ' min';
+            showMessage(`Daily time limit set to ${minutes} minutes`, 'success');
+            
+            // In real app, this would save to server
+            localStorage.setItem('dailyTimeLimit', minutes);
+        }
+
+        function updateAgeRestriction() {
+            const select = document.getElementById('ageSelect');
+            const value = select.value;
+            let ageRange;
+            
+            switch(value) {
+                case '3-5': ageRange = 'Preschool (3-5 years)'; break;
+                case '6-8': ageRange = 'Early Elementary (6-8 years)'; break;
+                case '9-12': ageRange = 'Upper Elementary (9-12 years)'; break;
+            }
+            
+            showMessage(`Age restriction set to ${ageRange}`, 'success');
+            localStorage.setItem('ageRestriction', value);
+        }
+
+        function setBedtimeLock() {
+            const bedtime = document.getElementById('bedtime').value;
+            showMessage(`Bedtime lock set to ${bedtime}. App will lock automatically.`, 'success');
+            localStorage.setItem('bedtimeLock', bedtime);
+        }
+
+        function sendProgressReport() {
+            const email = document.getElementById('reportEmail').value;
+            if (!email) {
+                showMessage('Please enter your email address', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Simulate sending report
+            setTimeout(() => {
+                showMessage(`Progress report sent to ${email}! You will receive it shortly.`, 'success');
+                document.getElementById('reportEmail').value = '';
+            }, 1000);
+        }
+
+        function generateReport() {
+            showMessage('Generating full report... Download will start soon!', 'info');
+            // In real app, this would generate and download PDF
+            setTimeout(() => {
+                showMessage('Report downloaded successfully!', 'success');
+            }, 2000);
+        }
+
+        function addChild() {
+            const childName = prompt("Enter child's name:");
+            if (!childName) return;
+            
+            const childAge = prompt("Enter child's age (3-12):");
+            if (!childAge || childAge < 3 || childAge > 12) {
+                showMessage('Please enter a valid age between 3 and 12', 'error');
+                return;
+            }
+            
+            // In real app, this would add to database
+            showMessage(`Added ${childName} (age ${childAge}) to your account!`, 'success');
+            
+            // Refresh page to show new child
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+
+        function viewChildDetails(childId) {
+            showMessage(`Loading ${childId === 'alex' ? "Alex's" : "Sophia's"} detailed profile...`, 'info');
+            // In real app, this would show detailed view
+        }
+
+        function pauseLearning() {
+            if (confirm('Pause all learning activities? This will lock the app for your children.')) {
+                showMessage('Learning activities paused. Children cannot access the app.', 'success');
+                localStorage.setItem('learningPaused', 'true');
+            }
+        }
+
+        function viewCertificates() {
+            showMessage('Loading earned certificates...', 'info');
+            // In real app, this would show certificates gallery
+        }
+
+        function manageSubscription() {
+            showMessage('Opening premium features...', 'info');
+            // In real app, this would open subscription page
+        }
+
+        function contactSupport() {
+            window.location.href = 'mailto:support@kiddoland.com?subject=Parent%20Support%20Request';
+        }
+
+        function showPrivacySettings() {
+            showMessage('Privacy settings coming soon!', 'info');
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout from parent dashboard?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Initialize parent dashboard
+        document.addEventListener('DOMContent', function() {
+            // Load saved settings
+            const savedTimeLimit = localStorage.getItem('dailyTimeLimit');
+            if (savedTimeLimit) {
+                document.getElementById('timeLimit').value = savedTimeLimit;
+                document.getElementById('timeDisplay').textContent = savedTimeLimit + ' min';
+            }
+            
+            const savedAgeRestriction = localStorage.getItem('ageRestriction');
+            if (savedAgeRestriction) {
+                document.getElementById('ageSelect').value = savedAgeRestriction;
+            }
+            
+            const savedBedtime = localStorage.getItem('bedtimeLock');
+            if (savedBedtime) {
+                document.getElementById('bedtime').value = savedBedtime;
+            }
+            
+            // Update stats periodically (simulated)
+            setInterval(() => {
+                // Simulate activity updates
+                const todayTime = document.getElementById('todayTime');
+                const currentTime = parseInt(todayTime.textContent);
+                if (currentTime < 120) {
+                    todayTime.textContent = (currentTime + 1) + ' min';
+                }
+            }, 60000); // Update every minute
+        });
+    </script>
+</body>
+</html>

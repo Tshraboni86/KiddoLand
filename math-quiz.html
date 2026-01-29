@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-gamepad"></i> Dashboard</a></li>
+                <li><a href="parent.html"><i class="fas fa-user-shield"></i> Parents</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-user"></i> My Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Math Quiz Container -->
+    <section class="quiz-container">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1>Math Quiz Challenge! 🧮</h1>
+                <p>Solve math problems and earn stars! ⭐</p>
+            </div>
+
+            <!-- Quiz Header -->
+            <div style="background: white; border-radius: 20px; padding: 1.5rem; margin: 1rem auto; max-width: 600px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="color: var(--purple); margin: 0;">Question <span id="currentQuestion">1</span>/<span id="totalQuestions">5</span></h3>
+                        <p style="color: var(--blue); margin: 0.5rem 0 0 0;">Score: <span id="scoreDisplay">0</span> points</p>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <div style="font-size: 1.5rem;">⭐</div>
+                        <div style="font-size: 1.5rem;">⭐</div>
+                        <div style="font-size: 1.5rem;">⭐</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Card -->
+            <div class="quiz-card">
+                <!-- Question -->
+                <div class="question" id="mathQuestion">
+                    What is 2 + 3?
+                </div>
+
+                <!-- Options -->
+                <div class="options-grid">
+                    <div class="option" data-value="4">4</div>
+                    <div class="option" data-value="5">5</div>
+                    <div class="option" data-value="6">6</div>
+                    <div class="option" data-value="7">7</div>
+                </div>
+
+                <!-- Feedback -->
+                <div id="quizFeedback" style="text-align: center; margin: 1rem 0; min-height: 40px;">
+                    <!-- Feedback will appear here -->
+                </div>
+
+                <!-- Buttons -->
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="skipQuestion()">
+                        <i class="fas fa-forward btn-icon"></i> Skip
+                    </button>
+                    <button class="btn btn-primary" id="nextQuestion" style="display: none;" onclick="nextQuestion()">
+                        <i class="fas fa-arrow-right btn-icon"></i> Next Question
+                    </button>
+                    <button class="btn btn-primary" id="submitAnswer" onclick="checkAnswer()">
+                        <i class="fas fa-check btn-icon"></i> Submit Answer
+                    </button>
+                </div>
+
+                <!-- Progress -->
+                <div style="margin-top: 2rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span>Quiz Progress</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Math Games -->
+            <div style="margin-top: 3rem;">
+                <h2 style="text-align: center; color: var(--purple);">More Math Fun! 🎮</h2>
+                <div class="subjects-grid" style="margin-top: 2rem;">
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h3>Addition Game</h3>
+                        <p>Practice addition with fun puzzles</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startMathGame('addition')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-minus-circle"></i>
+                        </div>
+                        <h3>Subtraction Game</h3>
+                        <p>Learn subtraction with animals</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startMathGame('subtraction')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                    <div class="subject-card">
+                        <div class="subject-icon">
+                            <i class="fas fa-shapes"></i>
+                        </div>
+                        <h3>Shape Puzzle</h3>
+                        <p>Match shapes and learn geometry</p>
+                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="startMathGame('shapes')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Counting Practice -->
+            <div style="background: white; border-radius: 20px; padding: 2rem; margin-top: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3 style="text-align: center; color: var(--blue);">Quick Counting Practice 🔢</h3>
+                <div style="text-align: center; margin: 1.5rem 0;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;" id="countingDisplay">🐰🐰🐰</div>
+                    <p style="font-size: 1.2rem; color: var(--purple);">How many animals do you see?</p>
+                    <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem;">
+                        <button class="btn" onclick="checkCounting(1)" style="font-size: 1.5rem; padding: 0.5rem 1rem;">1</button>
+                        <button class="btn" onclick="checkCounting(2)" style="font-size: 1.5rem; padding: 0.5rem 1rem;">2</button>
+                        <button class="btn" onclick="checkCounting(3)" style="font-size: 1.5rem; padding: 0.5rem 1rem;">3</button>
+                        <button class="btn" onclick="checkCounting(4)" style="font-size: 1.5rem; padding: 0.5rem 1rem;">4</button>
+                        <button class="btn" onclick="checkCounting(5)" style="font-size: 1.5rem; padding: 0.5rem 1rem;">5</button>
+                    </div>
+                    <div id="countingFeedback" style="margin-top: 1rem; font-weight: bold;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Math is fun when you're playing! Keep practicing! 🎯</p>
+            <div class="footer-links">
+                <a href="courses.html">More Courses</a>
+                <a href="dashboard.html">My Dashboard</a>
+                <a href="alphabet.html">Alphabet Fun</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Math Quiz specific functions
+        let mathScore = 0;
+        let currentMathQuestion = 0;
+        let selectedOption = null;
+        
+        const mathQuestions = [
+            {
+                question: "What is 2 + 3?",
+                options: ["4", "5", "6", "7"],
+                correct: 1,
+                answer: "5"
+            },
+            {
+                question: "How many apples are in 2 groups of 3?",
+                options: ["5", "6", "7", "8"],
+                correct: 1,
+                answer: "6"
+            },
+            {
+                question: "What is 10 - 4?",
+                options: ["5", "6", "7", "8"],
+                correct: 1,
+                answer: "6"
+            },
+            {
+                question: "How many sides does a triangle have?",
+                options: ["2", "3", "4", "5"],
+                correct: 1,
+                answer: "3"
+            },
+            {
+                question: "What is 5 × 2?",
+                options: ["8", "9", "10", "11"],
+                correct: 2,
+                answer: "10"
+            }
+        ];
+
+        // Initialize quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMathQuestion();
+            
+            // Add click events to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    selectedOption = this.getAttribute('data-value');
+                    
+                    // Enable submit button
+                    document.getElementById('submitAnswer').disabled = false;
+                });
+            });
+            
+            // Initialize counting game
+            generateCountingGame();
+        });
+
+        function loadMathQuestion() {
+            if (currentMathQuestion >= mathQuestions.length) {
+                showResults();
+                return;
+            }
+            
+            const q = mathQuestions[currentMathQuestion];
+            document.getElementById('mathQuestion').textContent = q.question;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.textContent = q.options[index];
+                option.setAttribute('data-value', q.options[index]);
+                option.classList.remove('selected', 'correct', 'wrong');
+            });
+            
+            // Update display
+            document.getElementById('currentQuestion').textContent = currentMathQuestion + 1;
+            document.getElementById('totalQuestions').textContent = mathQuestions.length;
+            document.getElementById('scoreDisplay').textContent = mathScore;
+            
+            // Update progress
+            const progressPercent = Math.round((currentMathQuestion / mathQuestions.length) * 100);
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+            document.getElementById('quizProgress').style.width = progressPercent + '%';
+            
+            // Reset buttons
+            document.getElementById('nextQuestion').style.display = 'none';
+            document.getElementById('submitAnswer').style.display = 'block';
+            document.getElementById('submitAnswer').disabled = true;
+            document.getElementById('quizFeedback').innerHTML = '';
+            
+            selectedOption = null;
+        }
+
+        function checkAnswer() {
+            if (!selectedOption) {
+                showMessage('Please select an answer!', 'error');
+                return;
+            }
+            
+            const q = mathQuestions[currentMathQuestion];
+            const isCorrect = selectedOption === q.answer;
+            const feedbackDiv = document.getElementById('quizFeedback');
+            
+            // Show feedback
+            if (isCorrect) {
+                mathScore += 10;
+                feedbackDiv.innerHTML = `
+                    <div style="color: var(--green); font-size: 1.2rem;">
+                        <i class="fas fa-check-circle"></i> Correct! 🎉 +10 points!
+                    </div>
+                    <p style="color: var(--purple); margin-top: 0.5rem;">Great job! ${q.question} = ${q.answer}</p>
+                `;
+                
+                // Mark correct option
+                document.querySelectorAll('.option').forEach(option => {
+                    if (option.getAttribute('data-value') === q.answer) {
+                        option.classList.add('correct');
+                    }
+                });
+                
+                // Play success sound (simulated)
+                playSuccessSound();
+            } else {
+                feedbackDiv.innerHTML = `
+                    <div style="color: var(--pink); font-size: 1.2rem;">
+                        <i class="fas fa-times-circle"></i> Try again! 💪
+                    </div>
+                    <p style="color: var(--purple); margin-top: 0.5rem;">The correct answer is ${q.answer}</p>
+                `;
+                
+                // Mark correct and wrong options
+                document.querySelectorAll('.option').forEach(option => {
+                    const value = option.getAttribute('data-value');
+                    if (value === q.answer) {
+                        option.classList.add('correct');
+                    } else if (value === selectedOption) {
+                        option.classList.add('wrong');
+                    }
+                });
+            }
+            
+            // Update score
+            document.getElementById('scoreDisplay').textContent = mathScore;
+            
+            // Show next button
+            document.getElementById('nextQuestion').style.display = 'block';
+            document.getElementById('submitAnswer').style.display = 'none';
+        }
+
+        function nextQuestion() {
+            currentMathQuestion++;
+            if (currentMathQuestion < mathQuestions.length) {
+                loadMathQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function skipQuestion() {
+            currentMathQuestion++;
+            if (currentMathQuestion < mathQuestions.length) {
+                loadMathQuestion();
+                showMessage('Question skipped!', 'info');
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const quizCard = document.querySelector('.quiz-card');
+            const percentage = Math.round((mathScore / (mathQuestions.length * 10)) * 100);
+            
+            let resultEmoji, resultMessage;
+            if (percentage >= 80) {
+                resultEmoji = '🏆';
+                resultMessage = 'Excellent! You\'re a math genius!';
+            } else if (percentage >= 60) {
+                resultEmoji = '⭐';
+                resultMessage = 'Good job! You\'re getting better!';
+            } else {
+                resultEmoji = '👍';
+                resultMessage = 'Nice try! Practice makes perfect!';
+            }
+            
+            quizCard.innerHTML = `
+                <h2 style="color: var(--purple); text-align: center;">Quiz Completed! 🎉</h2>
+                <div style="text-align: center; margin: 2rem 0;">
+                    <div style="font-size: 6rem; margin-bottom: 1rem;">${resultEmoji}</div>
+                    <div style="font-size: 3rem; color: var(--purple); margin-bottom: 1rem;">${mathScore}/50</div>
+                    <div style="font-size: 2rem; color: var(--blue); margin-bottom: 1rem;">${percentage}%</div>
+                    <p style="font-size: 1.5rem; color: var(--pink);">${resultMessage}</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                    <button class="btn btn-primary" onclick="restartMathQuiz()" style="width: 200px;">
+                        <i class="fas fa-redo btn-icon"></i> Try Again
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.location.href='dashboard.html'" style="width: 200px;">
+                        <i class="fas fa-home btn-icon"></i> Back to Dashboard
+                    </button>
+                    <button class="btn" onclick="window.location.href='courses.html'" style="width: 200px; background: var(--green); color: white;">
+                        <i class="fas fa-book btn-icon"></i> More Courses
+                    </button>
+                </div>
+            `;
+            
+            // Save progress
+            updateProgress('math', percentage);
+        }
+
+        function restartMathQuiz() {
+            mathScore = 0;
+            currentMathQuestion = 0;
+            loadMathQuestion();
+        }
+
+        function startMathGame(gameType) {
+            showMessage(`Starting ${gameType} game! Get ready to play!`, 'info');
+            // In real app, this would navigate to the game
+        }
+
+        // Counting Game Functions
+        function generateCountingGame() {
+            const count = Math.floor(Math.random() * 5) + 1;
+            let animals = '';
+            const animalTypes = ['🐰', '🐶', '🐱', '🐭', '🐹', '🐻', '🐼', '🐨'];
+            const randomAnimal = animalTypes[Math.floor(Math.random() * animalTypes.length)];
+            
+            for (let i = 0; i < count; i++) {
+                animals += randomAnimal;
+            }
+            
+            document.getElementById('countingDisplay').textContent = animals;
+            document.getElementById('countingDisplay').dataset.count = count;
+        }
+
+        function checkCounting(answer) {
+            const correctCount = parseInt(document.getElementById('countingDisplay').dataset.count);
+            const feedbackDiv = document.getElementById('countingFeedback');
+            
+            if (answer === correctCount) {
+                feedbackDiv.innerHTML = `<span style="color: var(--green);"><i class="fas fa-check-circle"></i> Correct! There are ${correctCount} animals! 🎉</span>`;
+                mathScore += 5;
+                document.getElementById('scoreDisplay').textContent = mathScore;
+                
+                // Show celebration
+                setTimeout(() => {
+                    generateCountingGame();
+                    feedbackDiv.innerHTML = '';
+                }, 1500);
+            } else {
+                feedbackDiv.innerHTML = `<span style="color: var(--pink);"><i class="fas fa-times-circle"></i> Try counting again! 💪</span>`;
+            }
+        }
+
+        function playSuccessSound() {
+            // Simulate sound with animation
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                if (option.classList.contains('correct')) {
+                    option.style.animation = 'bounce 0.5s';
+                    setTimeout(() => {
+                        option.style.animation = '';
+                    }, 500);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

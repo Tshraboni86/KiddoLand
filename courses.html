@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="courses.html" class="active"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-gamepad"></i> Dashboard</a></li>
+                <li><a href="parent.html"><i class="fas fa-user-shield"></i> Parents</a></li>
+                <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Courses Header -->
+    <section class="hero" style="padding: 3rem 2rem;">
+        <div class="hero-content">
+            <h1>Learning Courses</h1>
+            <p>Choose from 8 exciting subjects! Each course has fun games and activities.</p>
+        </div>
+    </section>
+
+    <!-- All Courses -->
+    <section class="features">
+        <div class="container">
+            <div class="subjects-grid">
+                <!-- Math -->
+                <div class="subject-card" id="math">
+                    <div class="subject-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Math Magic</h3>
+                    <p>Learn numbers, counting, addition, and subtraction</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--pink); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 3-8</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">15 Lessons</span>
+                    </div>
+                    <a href="math-quiz.html" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start Learning
+                    </a>
+                </div>
+
+                <!-- English -->
+                <div class="subject-card" id="english">
+                    <div class="subject-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>English Fun</h3>
+                    <p>Alphabet, phonics, reading, and writing</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--pink); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 3-8</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">20 Lessons</span>
+                    </div>
+                    <a href="alphabet.html" class="btn btn-primary">
+                        <i class="fas fa-play"></i> Start Learning
+                    </a>
+                </div>
+
+                <!-- Science -->
+                <div class="subject-card" id="science">
+                    <div class="subject-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Science World</h3>
+                    <p>Animals, plants, space, and experiments</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--green); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 6-12</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">18 Lessons</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Science course coming soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Learning
+                    </button>
+                </div>
+
+                <!-- Art -->
+                <div class="subject-card" id="art">
+                    <div class="subject-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Art Studio</h3>
+                    <p>Colors, drawing, and creativity</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--pink); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 3-12</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">12 Lessons</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Art studio opening soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Learning
+                    </button>
+                </div>
+
+                <!-- Coding -->
+                <div class="subject-card" id="coding">
+                    <div class="subject-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Kid Coding</h3>
+                    <p>Basic programming with fun puzzles</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--green); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 8-12</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">10 Lessons</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Coding course launching soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Learning
+                    </button>
+                </div>
+
+                <!-- Music -->
+                <div class="subject-card" id="music">
+                    <div class="subject-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Music Time</h3>
+                    <p>Rhythm, notes, and fun instruments</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--pink); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 3-10</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">8 Lessons</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Music lessons coming soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Learning
+                    </button>
+                </div>
+
+                <!-- GK -->
+                <div class="subject-card" id="gk">
+                    <div class="subject-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3>World Explorer</h3>
+                    <p>Countries, cultures, and general knowledge</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--green); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 6-12</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">15 Lessons</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Explore the world soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Learning
+                    </button>
+                </div>
+
+                <!-- Stories -->
+                <div class="subject-card" id="stories">
+                    <div class="subject-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Story Land</h3>
+                    <p>Interactive stories and reading practice</p>
+                    <div style="margin: 1rem 0;">
+                        <span class="badge" style="background: var(--pink); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">Ages 3-10</span>
+                        <span class="badge" style="background: var(--blue); color: white; padding: 0.3rem 0.8rem; border-radius: 15px;">25 Stories</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showMessage('Stories loading soon!', 'info')">
+                        <i class="fas fa-play"></i> Start Reading
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </div>
+            <p>8 Exciting Subjects • 100+ Lessons • Safe Learning</p>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="parent.html">Parents</a>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

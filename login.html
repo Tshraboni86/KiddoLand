@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - KiddoLand</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for login/register */
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .character {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .character.selected {
+            border-color: var(--purple);
+            transform: scale(1.1);
+        }
+        
+        .kid-login {
+            background: linear-gradient(135deg, var(--light-pink), var(--light-blue));
+        }
+        
+        .parent-login {
+            background: linear-gradient(135deg, var(--light-blue), var(--green));
+        }
+        
+        .login-options {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .login-option {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .login-option.active {
+            border-color: var(--purple);
+            background: white;
+        }
+        
+        .kid-mode .parent-form {
+            display: none;
+        }
+        
+        .parent-mode .kid-form {
+            display: none;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .forgot-password a {
+            color: var(--purple);
+            text-decoration: none;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: white;
+            border: 2px solid var(--light-blue);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--purple);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (Simple) -->
+    <nav class="main-nav" style="position: relative;">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-dragon logo-icon"></i>
+                <span class="logo-text">KiddoLand</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Login Container -->
+    <section class="auth-container">
+        <div class="auth-card">
+            <!-- Login Header -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 4rem; color: var(--purple); margin-bottom: 1rem;">
+                    <i class="fas fa-door-open"></i>
+                </div>
+                <h1 style="color: var(--purple);">Welcome Back! 🎉</h1>
+                <p style="color: var(--blue);">Sign in to continue your learning adventure</p>
+            </div>
+
+            <!-- Login Type Selection -->
+            <div class="login-options">
+                <div class="login-option active" id="kidOption" onclick="selectLoginType('kid')">
+                    <div style="font-size: 2rem; color: var(--pink);">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3 style="color: var(--purple); margin: 0.5rem 0;">I'm a Kid</h3>
+                    <p style="font-size: 0.9rem; color: var(--dark);">Fun games & learning</p>
+                </div>
+                <div class="login-option" id="parentOption" onclick="selectLoginType('parent')">
+                    <div style="font-size: 2rem; color: var(--blue);">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3 style="color: var(--purple); margin: 0.5rem 0;">I'm a Parent</h3>
+                    <p style="font-size: 0.9rem; color: var(--dark);">Monitor & manage</p>
+                </div>
+            </div>
+
+            <!-- Kid Login Form -->
+            <div id="kidLoginForm" class="kid-form">
+                <div class="character-selection">
+                    <div class="character kid-login selected" onclick="selectCharacter(this, 'robot')">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="character kid-login" onclick="selectCharacter(this, 'cat')">
+                        <i class="fas fa-cat"></i>
+                    </div>
+                    <div class="character kid-login" onclick="selectCharacter(this, 'dragon')">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <div class="character kid-login" onclick="selectCharacter(this, 'unicorn')">
+                        <i class="fas fa-unicorn"></i>
+                    </div>
+                </div>
+                
+                <form id="kidLogin" onsubmit="loginAsKid(event)">
+                    <div class="form-group">
+                        <label for="kidUsername">
+                            <i class="fas fa-user"></i> My Name
+                        </label>
+                        <input type="text" id="kidUsername" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="kidAvatar">
+                            <i class="fas fa-smile"></i> Choose Your Avatar
+                        </label>
+                        <select id="kidAvatar" required>
+                            <option value="">Select an avatar</option>
+                            <option value="robot">🤖 Robot</option>
+                            <option value="superhero">🦸 Superhero</option>
+                            <option value="princess">👸 Princess</option>
+                            <option value="dinosaur">🦕 Dinosaur</option>
+                            <option value="alien">👽 Alien</option>
+                            <option value="unicorn">🦄 Unicorn</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="kidAge">
+                            <i class="fas fa-birthday-cake"></i> My Age
+                        </label>
+                        <select id="kidAge" required>
+                            <option value="">Select age</option>
+                            <option value="3">3 years</option>
+                            <option value="4">4 years</option>
+                            <option value="5">5 years</option>
+                            <option value="6">6 years</option>
+                            <option value="7">7 years</option>
+                            <option value="8">8 years</option>
+                            <option value="9">9 years</option>
+                            <option value="10">10 years</option>
+                            <option value="11">11 years</option>
+                            <option value="12">12 years</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="kidColor">
+                            <i class="fas fa-palette"></i> Favorite Color
+                        </label>
+                        <input type="color" id="kidColor" value="#FF6EC7" style="width: 100%; height: 50px; border-radius: 10px; border: 3px solid var(--light-blue);">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-rocket btn-icon"></i> Let's Play!
+                    </button>
+                </form>
+                
+                <div class="forgot-password">
+                    <p>Need help? <a href="#" onclick="showHelp()">Ask a parent</a></p>
+                </div>
+            </div>
+
+            <!-- Parent Login Form -->
+            <div id="parentLoginForm" class="parent-form" style="display: none;">
+                <form id="parentLogin" onsubmit="loginAsParent(event)">
+                    <div class="form-group">
+                        <label for="parentEmail">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="parentEmail" placeholder="parent@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="parentPassword">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" id="parentPassword" placeholder="Enter your password" required>
+                        <div style="text-align: right; margin-top: 0.5rem;">
+                            <a href="#" onclick="forgotPassword()" style="color: var(--purple); font-size: 0.9rem; text-decoration: none;">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="rememberMe">
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt btn-icon"></i> Login to Parent Dashboard
+                    </button>
+                </form>
+                
+                <div class="social-login">
+                    <div class="social-btn" onclick="socialLogin('google')" style="color: #DB4437;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn" onclick="socialLogin('facebook')" style="color: #4267B2;">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div class="social-btn" onclick="socialLogin('apple')" style="color: #000;">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                </div>
+                
+                <div class="forgot-password">
+                    <p>Don't have an account? <a href="register.html">Create one now</a></p>
+                </div>
+            </div>
+
+            <!-- Guest Option -->
+            <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px dashed var(--light-blue);">
+                <p style="color: var(--dark); margin-bottom: 1rem;">Just want to explore?</p>
+                <button class="btn btn-secondary" onclick="loginAsGuest()">
+                    <i class="fas fa-eye btn-icon"></i> Try as Guest
+                </button>
+                <p style="font-size: 0.9rem; color: var(--dark); margin-top: 0.5rem;">Limited features available</p>
+            </div>
+
+            <!-- Safety Message -->
+            <div style="background: var(--light-blue); border-radius: 15px; padding: 1rem; margin-top: 2rem; text-align: center;">
+                <div style="font-size: 1.5rem; color: var(--purple); margin-bottom: 0.5rem;">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <p style="color: var(--dark); font-size: 0.9rem; margin: 0;">
+                    <strong>100% Safe for Kids:</strong> No ads • No chat • COPPA compliant • Parental controls
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Safe learning adventures start here! 🚀</p>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="courses.html">Courses</a>
+                <a href="parent.html">Parents</a>
+                <a href="#" onclick="showPrivacy()">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Login specific functions
+        let selectedCharacter = 'robot';
+        let loginType = 'kid';
+        
+        function selectLoginType(type) {
+            loginType = type;
+            
+            // Update active option
+            document.getElementById('kidOption').classList.toggle('active', type === 'kid');
+            document.getElementById('parentOption').classList.toggle('active', type === 'parent');
+            
+            // Show/hide forms
+            document.getElementById('kidLoginForm').style.display = type === 'kid' ? 'block' : 'none';
+            document.getElementById('parentLoginForm').style.display = type === 'parent' ? 'block' : 'none';
+            
+            // Update body class for CSS
+            document.body.className = type + '-mode';
+        }
+        
+        function selectCharacter(element, character) {
+            // Remove selected class from all characters
+            document.querySelectorAll('.character').forEach(char => {
+                char.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked character
+            element.classList.add('selected');
+            selectedCharacter = character;
+            
+            // Update avatar select
+            const avatarSelect = document.getElementById('kidAvatar');
+            const optionMap = {
+                'robot': 'robot',
+                'cat': 'dinosaur',
+                'dragon': 'dragon',
+                'unicorn': 'unicorn'
+            };
+            
+            if (optionMap[character]) {
+                avatarSelect.value = optionMap[character];
+            }
+        }
+        
+        function loginAsKid(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('kidUsername').value;
+            const avatar = document.getElementById('kidAvatar').value;
+            const age = document.getElementById('kidAge').value;
+            const color = document.getElementById('kidColor').value;
+            
+            if (!username || !avatar || !age) {
+                showMessage('Please fill in all fields!', 'error');
+                return;
+            }
+            
+            // Save kid data
+            const kidData = {
+                username: username,
+                avatar: avatar,
+                age: age,
+                color: color,
+                character: selectedCharacter,
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('kidProfile', JSON.stringify(kidData));
+            localStorage.setItem('userType', 'kid');
+            
+            // Show loading animation
+            showMessage(`Welcome ${username}! Loading your adventures... 🚀`, 'success');
+            
+            // Redirect to dashboard
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+        
+        function loginAsParent(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('parentEmail').value;
+            const password = document.getElementById('parentPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            if (!email || !password) {
+                showMessage('Please fill in all fields!', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Simple validation (in real app, this would check with server)
+            if (password.length < 6) {
+                showMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            // Save parent data
+            const parentData = {
+                email: email,
+                rememberMe: rememberMe,
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('parentProfile', JSON.stringify(parentData));
+            localStorage.setItem('userType', 'parent');
+            
+            // Show loading
+            showMessage('Welcome back! Loading parent dashboard... 👨‍👩‍👧', 'success');
+            
+            // Redirect to parent dashboard
+            setTimeout(() => {
+                window.location.href = 'parent.html';
+            }, 1500);
+        }
+        
+        function loginAsGuest() {
+            // Create temporary guest profile
+            const guestData = {
+                username: 'Guest Explorer',
+                avatar: 'robot',
+                age: '6',
+                color: '#FF6EC7',
+                character: 'robot',
+                isGuest: true
+            };
+            
+            localStorage.setItem('kidProfile', JSON.stringify(guestData));
+            localStorage.setItem('userType', 'guest');
+            
+            showMessage('Welcome, Guest! Enjoy limited preview features! 🎮', 'info');
+            
+            // Redirect with limited access
+            setTimeout(() => {
+                window.location.href = 'courses.html';
+            }, 1500);
+        }
+        
+        function socialLogin(provider) {
+            showMessage(`Connecting with ${provider}...`, 'info');
+            // In real app, this would integrate with social login APIs
+            setTimeout(() => {
+                showMessage(`${provider} login coming soon!`, 'info');
+            }, 1000);
+        }
+        
+        function forgotPassword() {
+            const email = prompt('Enter your email to reset password:');
+            if (email && validateEmail(email)) {
+                showMessage(`Password reset link sent to ${email}`, 'success');
+            } else if (email) {
+                showMessage('Please enter a valid email address', 'error');
+            }
+        }
+        
+        function showHelp() {
+            showMessage('Tell your parent you need help logging in! 👨‍👩‍👧', 'info');
+        }
+        
+        function showPrivacy() {
+            showMessage('Privacy Policy: We never share kid data with third parties! 🔒', 'info');
+        }
+        
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Initialize login page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved login
+            const savedUserType = localStorage.getItem('userType');
+            if (savedUserType === 'parent') {
+                selectLoginType('parent');
+                const parentData = JSON.parse(localStorage.getItem('parentProfile') || '{}');
+                if (parentData.email) {
+                    document.getElementById('parentEmail').value = parentData.email;
+                }
+            }
+            
+            // Auto-select default character
+            const defaultCharacter = document.querySelector('.character');
+            if (defaultCharacter) {
+                defaultCharacter.click();
+            }
+            
+            // Add fun hover effects to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px) scale(1.05)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
